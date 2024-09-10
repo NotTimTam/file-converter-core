@@ -1,6 +1,6 @@
 {
 	"name": "@nottimtam/file-converter-core",
-	"version": "1.0.12",
+	"version": "1.1.2",
 	"description": "Core file conversion modules for @nottimtam/file-converter.",
 	"main": "index.js",
 	"type": "module",
@@ -24,7 +24,8 @@
 	"homepage": "https://github.com/NotTimTam/file-converter-core#readme",
 	"dependencies": {
 		"@nottimtam/file-converter": "latest",
-		"fs-extra": "^11.2.0"
+		"fs-extra": "^11.2.0",
+		"sharp": "^0.33.5"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -1,5 +1,7 @@
-import ImageToBase64 from "./modules/ImageToBase64";
+import ImageModules from "./modules/images";
 
-const modules = [ImageToBase64];
+export { default as ImageModules } from "./modules/images";
 
-export default modules;
+const CoreModules = [...ImageModules];
+
+export default CoreModules;

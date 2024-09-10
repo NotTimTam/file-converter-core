@@ -22,3 +22,10 @@ const fileConverter = new FileConverter({
 	modules: [...CoreModules],
 });
 ```
+
+## Modules
+
+### ImageToBase64
+
+-   Converts From: `image/jpeg`, `image/png`
+-   Converts To: `text/plain`
