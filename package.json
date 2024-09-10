@@ -1,0 +1,29 @@
+{
+	"name": "file-converter-core",
+	"version": "1.0.0",
+	"description": "Core file conversion modules for @nottimtam/file-converter",
+	"main": "index.js",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/NotTimTam/file-converter-core.git"
+	},
+	"keywords": [
+		"file-converter",
+		"file",
+		"conversion",
+		"module",
+		"express",
+		"api"
+	],
+	"author": "NotTimTam",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/NotTimTam/file-converter-core/issues"
+	},
+	"homepage": "https://github.com/NotTimTam/file-converter-core#readme",
+	"dependencies": {
+		"file-converter": "github:NotTimTam/file-converter",
+		"fs-extra": "^11.2.0"
+	}
+}
