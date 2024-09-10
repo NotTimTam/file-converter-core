@@ -1,19 +1,18 @@
 import { Module } from "@nottimtam/file-converter";
 import fs from "fs-extra";
-import sharp from "sharp";
+import Sharp from "sharp";
 
 const ImageModules = [
 	new Module({
-		label: "ImageToBase64",
-		description: "Convert image files to plaintext files.",
-		from: ["image/jpeg", "image/png"],
-		to: "text/plain",
+		label: "JPEGToPNG",
+		description: "Convert .jpeg files to .png.",
+		from: "image/jpeg",
+		to: "image/png",
 		method: async ({ path }) => {
 			const data = await fs.readFile(path);
 
-			const base64Data = data.toString("base64");
-
-			await fs.writeFile(path, base64Data, { encoding: "utf-8" });
+			const sharp = new Sharp(data);
+			await sharp.png().toFile(path);
 		},
 	}),
 ];
