@@ -23,7 +23,7 @@
 	},
 	"homepage": "https://github.com/NotTimTam/file-converter-core#readme",
 	"dependencies": {
-		"file-converter": "github:NotTimTam/file-converter",
+		"@nottimtam/file-converter": "latest",
 		"fs-extra": "^11.2.0"
 	},
 	"publishConfig": {

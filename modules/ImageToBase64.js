@@ -1,4 +1,4 @@
-import Module from "file-converter";
+import Module from "@nottimtam/file-converter";
 import fs from "fs-extra";
 
 const ImageToBase64 = new Module({
