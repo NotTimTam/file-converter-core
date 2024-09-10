@@ -1,4 +1,4 @@
-import Module from "@nottimtam/file-converter";
+import { Module } from "@nottimtam/file-converter";
 import fs from "fs-extra";
 import sharp from "sharp";
 

@@ -1,4 +1,4 @@
-# file-converter-core
+# @nottimtam/file-converter-core
 
 Core file conversion modules for [@nottimtam/file-converter](https://www.npmjs.com/package/@nottimtam/file-converter).
 
