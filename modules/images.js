@@ -15,23 +15,11 @@ const ImageModules = [
 					"Use progressive (interlace) scan. (default false)",
 				type: "boolean",
 				default: false,
-				required: false,
+				required: true,
 				validateInput: async (value) => {
 					if (Boolean(value) !== value)
 						throw new SyntaxError(
 							`ProgressiveInterlacing should be a boolean.`
-						);
-					if (value < 0)
-						throw new SyntaxError(
-							`CompressionLevel should be greater than or equal to 0.`
-						);
-					if (value > 9)
-						throw new SyntaxError(
-							`CompressionLevel should be less than or equal to 9.`
-						);
-					if (value % 1 !== 0)
-						throw new SyntaxError(
-							`CompressionLevel should be an integer between 0 and 9. (inclusive)`
 						);
 				},
 			}),
@@ -61,6 +49,19 @@ const ImageModules = [
 						);
 				},
 			}),
+			new Module.Option({
+				label: "AdaptiveFiltering",
+				description: "Use adaptive row filtering.",
+				type: "boolean",
+				default: false,
+				required: false,
+				validateInput: async (value) => {
+					if (Boolean(value) !== value)
+						throw new SyntaxError(
+							`AdaptiveFiltering should be a boolean.`
+						);
+				},
+			}),
 		],
 		method: async ({ path }, options = {}) => {
 			const data = await fs.readFile(path);
@@ -68,9 +69,11 @@ const ImageModules = [
 			const sharp = new Sharp(data);
 			await sharp
 				.png({
+					progressive: options.ProgressiveInterlacing,
 					compressionLevel: options.CompressionLevel
 						? options.CompressionLevel
 						: 6,
+					adaptiveFiltering: options.AdaptiveFiltering,
 				})
 				.toFile(path);
 		},
