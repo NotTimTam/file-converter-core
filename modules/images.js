@@ -14,6 +14,7 @@ const ImageModules = [
 				description:
 					"zlib compression level, 0 (fastest, largest) to 9 (slowest, smallest). (default 6)",
 				type: "number",
+				default: 6,
 				validateInput: async (value) => {
 					if (typeof value !== "number")
 						throw new SyntaxError(
@@ -35,8 +36,6 @@ const ImageModules = [
 			}),
 		],
 		method: async ({ path }, options = {}) => {
-			console.log(options);
-
 			const data = await fs.readFile(path);
 
 			const sharp = new Sharp(data);
