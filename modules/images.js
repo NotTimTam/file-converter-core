@@ -13,7 +13,7 @@ const ImageModules = [
 				label: "ProgressiveInterlacing",
 				description:
 					"Use progressive (interlace) scan. (default false)",
-				type: "number",
+				type: "boolean",
 				default: false,
 				required: false,
 				validateInput: async (value) => {
@@ -41,7 +41,7 @@ const ImageModules = [
 					"zlib compression level, 0 (fastest, largest) to 9 (slowest, smallest). (default 6)",
 				type: "number",
 				default: 6,
-				required: false,
+				required: true,
 				validateInput: async (value) => {
 					if (typeof value !== "number")
 						throw new SyntaxError(
