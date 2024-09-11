@@ -34,13 +34,19 @@ const ImageModules = [
 				},
 			}),
 		],
-		method: async ({ path }, options) => {
+		method: async ({ path }, options = {}) => {
 			console.log(options);
 
 			const data = await fs.readFile(path);
 
 			const sharp = new Sharp(data);
-			await sharp.png().toFile(path);
+			await sharp
+				.png({
+					compressionLevel: options.CompressionLevel
+						? options.CompressionLevel
+						: 6,
+				})
+				.toFile(path);
 		},
 	}),
 ];
