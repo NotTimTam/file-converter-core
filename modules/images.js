@@ -10,11 +10,38 @@ const ImageModules = [
 		to: "image/png",
 		options: [
 			new Module.Option({
+				label: "ProgressiveInterlacing",
+				description:
+					"Use progressive (interlace) scan. (default false)",
+				type: "number",
+				default: false,
+				required: false,
+				validateInput: async (value) => {
+					if (Boolean(value) !== value)
+						throw new SyntaxError(
+							`ProgressiveInterlacing should be a boolean.`
+						);
+					if (value < 0)
+						throw new SyntaxError(
+							`CompressionLevel should be greater than or equal to 0.`
+						);
+					if (value > 9)
+						throw new SyntaxError(
+							`CompressionLevel should be less than or equal to 9.`
+						);
+					if (value % 1 !== 0)
+						throw new SyntaxError(
+							`CompressionLevel should be an integer between 0 and 9. (inclusive)`
+						);
+				},
+			}),
+			new Module.Option({
 				label: "CompressionLevel",
 				description:
 					"zlib compression level, 0 (fastest, largest) to 9 (slowest, smallest). (default 6)",
 				type: "number",
 				default: 6,
+				required: false,
 				validateInput: async (value) => {
 					if (typeof value !== "number")
 						throw new SyntaxError(
