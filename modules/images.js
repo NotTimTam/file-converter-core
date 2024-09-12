@@ -10,7 +10,7 @@ const PNG = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(
 						`ProgressiveInterlacing should be a boolean.`
 					);
@@ -47,7 +47,7 @@ const PNG = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(
 						`AdaptiveFiltering should be a boolean.`
 					);
@@ -60,7 +60,7 @@ const PNG = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(`Palette should be a boolean.`);
 			},
 		}),
@@ -200,7 +200,7 @@ const WebP = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(
 						`Lossless value should be a boolean.`
 					);
@@ -213,7 +213,7 @@ const WebP = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(
 						`NearLossless value should be a boolean.`
 					);
@@ -226,7 +226,7 @@ const WebP = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(
 						`SmartSubsample value should be a boolean.`
 					);
@@ -290,13 +290,13 @@ const WebP = {
 			default: 0,
 			validateInput: async (value) => {
 				if (typeof value !== "number")
-					throw new SyntaxError(`Effort should be a number.`);
+					throw new SyntaxError(`Loop should be a number.`);
 				if (value < 0)
 					throw new SyntaxError(
-						`Effort should be greater than or equal to 0.`
+						`Loop should be greater than or equal to 0.`
 					);
 				if (value % 1 !== 0)
-					throw new SyntaxError(`Effort should be an integer.`);
+					throw new SyntaxError(`Loop should be an integer.`);
 			},
 		}),
 
@@ -317,7 +317,7 @@ const WebP = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(`MinSize value should be a boolean.`);
 			},
 		}),
@@ -329,7 +329,7 @@ const WebP = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(`Mixed value should be a boolean.`);
 			},
 		}),
@@ -359,7 +359,7 @@ const GIF = {
 			type: "boolean",
 			default: true,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(`Reuse value should be a boolean.`);
 			},
 		}),
@@ -370,7 +370,7 @@ const GIF = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(
 						`Progressive value should be a boolean.`
 					);
@@ -571,7 +571,7 @@ const AVIF = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(
 						`Lossless value should be a boolean.`
 					);
@@ -728,7 +728,7 @@ const TIFF = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(`Pyramid value should be a boolean.`);
 			},
 		}),
@@ -739,7 +739,7 @@ const TIFF = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(`Tile value should be a boolean.`);
 			},
 		}),
@@ -830,7 +830,7 @@ const TIFF = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(
 						`Miniswhite value should be a boolean.`
 					);
@@ -885,7 +885,7 @@ const JPEG = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(
 						`Progressive value should be a boolean.`
 					);
@@ -919,7 +919,7 @@ const JPEG = {
 			type: "boolean",
 			default: true,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(
 						`OptimiseCoding value should be a boolean.`
 					);
@@ -933,7 +933,7 @@ const JPEG = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(`MozJPEG value should be a boolean.`);
 			},
 		}),
@@ -944,7 +944,7 @@ const JPEG = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(
 						`TrellisQuantisation value should be a boolean.`
 					);
@@ -957,7 +957,7 @@ const JPEG = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(
 						`OvershootDeringing value should be a boolean.`
 					);
@@ -970,7 +970,7 @@ const JPEG = {
 			type: "boolean",
 			default: false,
 			validateInput: async (value) => {
-				if (Boolean(value) !== value)
+				if (typeof value !== "boolean")
 					throw new SyntaxError(
 						`OptimiseScans value should be a boolean.`
 					);
