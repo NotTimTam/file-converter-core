@@ -43,5 +43,6 @@ _Do not use both `CoreModules` and a sub-group at the same time, or conflict err
 
 -   JPEGToPNG &mdash; `image/jpeg` to `image/png`
 -   JPEGToWebP &mdash; `image/jpeg` to `image/webp`
+-   JPEGToGIF &mdash; `image/jpeg` to `image/gif`
 
 ---

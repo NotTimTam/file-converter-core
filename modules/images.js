@@ -354,6 +354,196 @@ const WebP = {
 	}),
 };
 
+const GIF = {
+	options: [
+		new Module.Option({
+			label: "Reuse",
+			description:
+				"Re-use existing palette, otherwise generate new (slow).",
+			type: "boolean",
+			default: true,
+			validateInput: async (value) => {
+				if (Boolean(value) !== value)
+					throw new SyntaxError(`Reuse value should be a boolean.`);
+			},
+		}),
+
+		new Module.Option({
+			label: "Progressive",
+			description: "Use progressive (interlace) scan",
+			type: "boolean",
+			default: false,
+			validateInput: async (value) => {
+				if (Boolean(value) !== value)
+					throw new SyntaxError(
+						`Progressive value should be a boolean.`
+					);
+			},
+		}),
+
+		new Module.Option({
+			label: "Colors",
+			description:
+				"Maximum number of palette entries, including transparency, between 2 and 256.",
+			type: "number",
+			default: 256,
+			validateInput: async (value) => {
+				if (typeof value !== "number")
+					throw new SyntaxError(`Colors should be a number.`);
+				if (value < 2)
+					throw new SyntaxError(
+						`Colors should be greater than or equal to 2.`
+					);
+				if (value > 256)
+					throw new SyntaxError(
+						`Colors should be less than or equal to 256.`
+					);
+				if (value % 1 !== 0)
+					throw new SyntaxError(
+						`Colors should be an integer between 2 and 256. (inclusive)`
+					);
+			},
+		}),
+
+		new Module.Option({
+			label: "Effort",
+			description: "CPU effort, between 1 (fastest) and 10 (slowest).",
+			type: "number",
+			default: 7,
+			validateInput: async (value) => {
+				if (typeof value !== "number")
+					throw new SyntaxError(`Effort should be a number.`);
+				if (value < 1)
+					throw new SyntaxError(
+						`Effort should be greater than or equal to 1.`
+					);
+				if (value > 10)
+					throw new SyntaxError(
+						`Effort should be less than or equal to 10.`
+					);
+				if (value % 1 !== 0)
+					throw new SyntaxError(
+						`Effort should be an integer between 1 and 10. (inclusive)`
+					);
+			},
+		}),
+
+		new Module.Option({
+			label: "Dither",
+			description:
+				"Level of Floyd-Steinberg error diffusion, between 0 (least) and 1 (most).",
+			type: "number",
+			default: 1.0,
+			validateInput: async (value) => {
+				if (typeof value !== "number")
+					throw new SyntaxError(`Dither should be a number.`);
+				if (value < 0)
+					throw new SyntaxError(
+						`Dither should be greater than or equal to 0.`
+					);
+				if (value > 1)
+					throw new SyntaxError(
+						`Dither should be less than or equal to 1.`
+					);
+			},
+		}),
+
+		new Module.Option({
+			label: "InterFrameMaxError",
+			description:
+				"Maximum inter-frame error for transparency, between 0 (lossless) and 32.",
+			type: "number",
+			default: 0,
+			validateInput: async (value) => {
+				if (typeof value !== "number")
+					throw new SyntaxError(
+						`InterFrameMaxError should be a number.`
+					);
+				if (value < 0)
+					throw new SyntaxError(
+						`InterFrameMaxError should be greater than or equal to 0.`
+					);
+				if (value > 32)
+					throw new SyntaxError(
+						`InterFrameMaxError should be less than or equal to 32.`
+					);
+				if (value % 1 !== 0)
+					throw new SyntaxError(
+						`InterFrameMaxError should be an integer between 0 and 32. (inclusive)`
+					);
+			},
+		}),
+
+		new Module.Option({
+			label: "InterPaletteMaxError",
+			description:
+				"Maximum inter-palette error for palette reuse, between 0 and 256.",
+			type: "number",
+			default: 3,
+			validateInput: async (value) => {
+				if (typeof value !== "number")
+					throw new SyntaxError(
+						`InterPaletteMaxError should be a number.`
+					);
+				if (value < 0)
+					throw new SyntaxError(
+						`InterPaletteMaxError should be greater than or equal to 0.`
+					);
+				if (value > 256)
+					throw new SyntaxError(
+						`InterPaletteMaxError should be less than or equal to 256.`
+					);
+				if (value % 1 !== 0)
+					throw new SyntaxError(
+						`InterPaletteMaxError should be an integer between 0 and 256. (inclusive)`
+					);
+			},
+		}),
+
+		new Module.Option({
+			label: "Loop",
+			description:
+				"Number of animation iterations, use 0 for infinite animation.",
+			type: "number",
+			default: 0,
+			validateInput: async (value) => {
+				if (typeof value !== "number")
+					throw new SyntaxError(`Loop should be a number.`);
+				if (value < 0)
+					throw new SyntaxError(
+						`Loop should be greater than or equal to 0.`
+					);
+			},
+		}),
+
+		new Module.Option({
+			label: "Delay",
+			description: "Delay(s) between animation frames (in milliseconds).",
+			type: "number",
+			validateInput: async (value) => {
+				if (typeof value !== "number")
+					throw new SyntaxError(`Delay should be a number.`);
+				if (value < 0)
+					throw new SyntaxError(
+						`Delay should be greater than or equal to 0.`
+					);
+			},
+		}),
+	],
+
+	sharp: (options) => ({
+		reuse: options.Reuse,
+		progressive: options.Progressive,
+		colors: options.Colors,
+		effort: options.Effort,
+		dither: options.Dither,
+		interFrameMaxError: options.InterFrameMaxError,
+		interPaletteMaxError: options.InterPaletteMaxError,
+		loop: options.Loop,
+		delay: options.Delay,
+	}),
+};
+
 const ImageModules = [
 	new Module({
 		label: "JPEGToPNG",
@@ -380,6 +570,20 @@ const ImageModules = [
 
 			const sharp = new Sharp(data);
 			await sharp.webp(WebP.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "JPEGToGIF",
+		description: "Convert .jpeg files to .gif.",
+		from: "image/jpeg",
+		to: "image/gif",
+		options: GIF.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.gif(GIF.sharp(options)).toFile(path);
 		},
 	}),
 ];
