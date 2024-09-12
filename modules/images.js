@@ -794,8 +794,8 @@ const TIFF = {
 			type: "string",
 			default: "inch",
 			validateInput: async (value) => {
-				if (typeof value !== "number")
-					throw new SyntaxError(`ResolutionUnit should be a number.`);
+				if (typeof value !== "string")
+					throw new SyntaxError(`ResolutionUnit should be a string.`);
 
 				const resolutionUnitEnum = ["inch", "cm"];
 
