@@ -1,6 +1,6 @@
 {
 	"name": "@nottimtam/file-converter-core",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"description": "Core file conversion modules for @nottimtam/file-converter.",
 	"main": "index.js",
 	"type": "module",
