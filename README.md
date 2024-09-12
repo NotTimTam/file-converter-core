@@ -25,6 +25,23 @@ const fileConverter = new FileConverter({
 
 ## Modules
 
-### JPEGToPNG
+You can use all the modules:
 
--   Conversion: `image/jpeg` => `image/png`
+```js
+import CoreModules from "@nottimtam/file-converter-core";
+```
+
+Or just the groups you need:
+
+```js
+import { ImageModules } from "@nottimtam/file-converter-core";
+```
+
+_Do not use both `CoreModules` and a sub-group at the same time, or conflict errors will be thrown._
+
+### ImageModules
+
+-   JPEGToPNG &mdash; `image/jpeg` to `image/png`
+-   JPEGToWebP &mdash; `image/jpeg` to `image/webp`
+
+---
