@@ -34,7 +34,7 @@ import CoreModules from "@nottimtam/file-converter-core";
 Or just the groups you need:
 
 ```js
-import { ImageModules } from "@nottimtam/file-converter-core";
+import { ImageModules, PDFModules } from "@nottimtam/file-converter-core";
 ```
 
 _Do not use both `CoreModules` and a sub-group at the same time, or conflict errors will be thrown._
@@ -71,5 +71,11 @@ _Do not use both `CoreModules` and a sub-group at the same time, or conflict err
 -   TIFFToGIF &mdash; `image/tiff` to `image/gif`
 -   TIFFToAVIF &mdash; `image/tiff` to `image/avif`
 -   TIFFToJPEG &mdash; `image/tiff` to `image/jpeg`
+
+---
+
+### PDFModules
+
+-   JPEGToPDF &mdash; `image/jpeg` to `application/pdf`
 
 ---
