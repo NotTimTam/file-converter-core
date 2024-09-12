@@ -854,7 +854,170 @@ const TIFF = {
 	}),
 };
 
+const JPEG = {
+	options: [
+		new Module.Option({
+			label: "Quality",
+			description: "Quality, integer 1-100.",
+			type: "number",
+			default: 80,
+			validateInput: async (value) => {
+				if (typeof value !== "number")
+					throw new SyntaxError(`Quality should be a number.`);
+				if (value < 1)
+					throw new SyntaxError(
+						`Quality should be greater than or equal to 1.`
+					);
+				if (value > 100)
+					throw new SyntaxError(
+						`Quality should be less than or equal to 100.`
+					);
+				if (value % 1 !== 0)
+					throw new SyntaxError(
+						`Quality should be an integer between 1 and 100. (inclusive)`
+					);
+			},
+		}),
+
+		new Module.Option({
+			label: "Progressive",
+			description: "Use progressive (interlace) scan.",
+			type: "boolean",
+			default: false,
+			validateInput: async (value) => {
+				if (Boolean(value) !== value)
+					throw new SyntaxError(
+						`Progressive value should be a boolean.`
+					);
+			},
+		}),
+
+		new Module.Option({
+			label: "ChromaSubsampling",
+			description:
+				"Set to '4:4:4' to prevent chroma subsampling otherwise defaults to '4:2:0' chroma subsampling.",
+			type: "string",
+			default: "4:2:0",
+			validateInput: async (value) => {
+				if (typeof value !== "string")
+					throw new SyntaxError(
+						`ChromaSubsampling should be a string.`
+					);
+
+				const chromaSubsamplingEnum = ["4:4:4", "4:2:0"];
+
+				if (!chromaSubsamplingEnum.includes(value))
+					throw new SyntaxError(
+						"ChromaSubsampling should be one of: '4:4:4', '4:2:0'."
+					);
+			},
+		}),
+
+		new Module.Option({
+			label: "OptimiseCoding",
+			description: "Optimise Huffman coding tables.",
+			type: "boolean",
+			default: true,
+			validateInput: async (value) => {
+				if (Boolean(value) !== value)
+					throw new SyntaxError(
+						`OptimiseCoding value should be a boolean.`
+					);
+			},
+		}),
+
+		new Module.Option({
+			label: "MozJPEG",
+			description:
+				"Use mozjpeg defaults, equivalent to { trellisQuantisation: true, overshootDeringing: true, optimiseScans: true, quantisationTable: 3 }.",
+			type: "boolean",
+			default: false,
+			validateInput: async (value) => {
+				if (Boolean(value) !== value)
+					throw new SyntaxError(`MozJPEG value should be a boolean.`);
+			},
+		}),
+
+		new Module.Option({
+			label: "TrellisQuantisation",
+			description: "Apply trellis quantisation.",
+			type: "boolean",
+			default: false,
+			validateInput: async (value) => {
+				if (Boolean(value) !== value)
+					throw new SyntaxError(
+						`TrellisQuantisation value should be a boolean.`
+					);
+			},
+		}),
+
+		new Module.Option({
+			label: "OvershootDeringing",
+			description: "Apply overshoot deringing.",
+			type: "boolean",
+			default: false,
+			validateInput: async (value) => {
+				if (Boolean(value) !== value)
+					throw new SyntaxError(
+						`OvershootDeringing value should be a boolean.`
+					);
+			},
+		}),
+
+		new Module.Option({
+			label: "OptimiseScans",
+			description: "Optimise progressive scans, forces progressive.",
+			type: "boolean",
+			default: false,
+			validateInput: async (value) => {
+				if (Boolean(value) !== value)
+					throw new SyntaxError(
+						`OptimiseScans value should be a boolean.`
+					);
+			},
+		}),
+
+		new Module.Option({
+			label: "QuantisationTable",
+			description: "Quantization table to use, integer 0-8.",
+			type: "number",
+			default: 0,
+			validateInput: async (value) => {
+				if (typeof value !== "number")
+					throw new SyntaxError(
+						`QuantisationTable should be a number.`
+					);
+				if (value < 0)
+					throw new SyntaxError(
+						`QuantisationTable should be greater than or equal to 0.`
+					);
+				if (value > 8)
+					throw new SyntaxError(
+						`QuantisationTable should be less than or equal to 8.`
+					);
+				if (value % 1 !== 0)
+					throw new SyntaxError(
+						`QuantisationTable should be an integer between 0 and 8. (inclusive)`
+					);
+			},
+		}),
+	],
+
+	sharp: (options) => ({
+		quality: options.Quality,
+		progressive: options.Progressive,
+		chromaSubsampling: options.ChromaSubsampling,
+		optimiseCoding: options.OptimiseCoding,
+		mozjpeg: options.MozJPEG,
+		trellisQuantisation: options.TrellisQuantisation,
+		overshootDeringing: options.OvershootDeringing,
+		optimiseScans: options.OptimiseScans,
+		quantisationTable: options.QuantisationTable,
+	}),
+};
+
 const ImageModules = [
+	// JPEG to
 	new Module({
 		label: "JPEGToPNG",
 		description: "Convert .jpeg files to .png.",
@@ -922,6 +1085,361 @@ const ImageModules = [
 
 			const sharp = new Sharp(data);
 			await sharp.tiff(TIFF.sharp(options)).toFile(path);
+		},
+	}),
+
+	// PNG to
+	new Module({
+		label: "PNGToJPEG",
+		description: "Convert .png files to .jpeg.",
+		from: "image/png",
+		to: "image/jpeg",
+		options: JPEG.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.jpeg(JPEG.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "PNGToWebP",
+		description: "Convert .png files to .webp.",
+		from: "image/png",
+		to: "image/webp",
+		options: WebP.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.webp(WebP.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "PNGToGIF",
+		description: "Convert .png files to .gif.",
+		from: "image/png",
+		to: "image/gif",
+		options: GIF.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.gif(GIF.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "PNGToAVIF",
+		description: "Convert .png files to .avif.",
+		from: "image/png",
+		to: "image/avif",
+		options: AVIF.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.avif(AVIF.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "PNGToTIFF",
+		description: "Convert .png files to .tiff.",
+		from: "image/png",
+		to: "image/tiff",
+		options: TIFF.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.tiff(TIFF.sharp(options)).toFile(path);
+		},
+	}),
+
+	// WebP to
+	new Module({
+		label: "WebPToPNG",
+		description: "Convert .webp files to .png.",
+		from: "image/webp",
+		to: "image/png",
+		options: PNG.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.png(PNG.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "WebPToJPEG",
+		description: "Convert .webp files to .jpeg.",
+		from: "image/webp",
+		to: "image/jpeg",
+		options: WebP.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.jpeg(JPEG.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "WebPToGIF",
+		description: "Convert .webp files to .gif.",
+		from: "image/webp",
+		to: "image/gif",
+		options: GIF.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.gif(GIF.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "WebPToAVIF",
+		description: "Convert .webp files to .avif.",
+		from: "image/webp",
+		to: "image/avif",
+		options: AVIF.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.avif(AVIF.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "WebPToTIFF",
+		description: "Convert .webp files to .tiff.",
+		from: "image/webp",
+		to: "image/tiff",
+		options: TIFF.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.tiff(TIFF.sharp(options)).toFile(path);
+		},
+	}),
+
+	// GIF to
+	new Module({
+		label: "GIFToPNG",
+		description: "Convert .gif files to .png.",
+		from: "image/gif",
+		to: "image/png",
+		options: PNG.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.png(PNG.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "GIFToWebP",
+		description: "Convert .gif files to .webp.",
+		from: "image/gif",
+		to: "image/webp",
+		options: WebP.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.webp(WebP.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "GIFToJPEG",
+		description: "Convert .gif files to .jpeg.",
+		from: "image/gif",
+		to: "image/jpeg",
+		options: GIF.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.gif(JPEG.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "GIFToAVIF",
+		description: "Convert .gif files to .avif.",
+		from: "image/gif",
+		to: "image/avif",
+		options: AVIF.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.avif(AVIF.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "GIFToTIFF",
+		description: "Convert .gif files to .tiff.",
+		from: "image/gif",
+		to: "image/tiff",
+		options: TIFF.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.tiff(TIFF.sharp(options)).toFile(path);
+		},
+	}),
+
+	// AVIF to
+	new Module({
+		label: "AVIFToPNG",
+		description: "Convert .avif files to .png.",
+		from: "image/avif",
+		to: "image/png",
+		options: PNG.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.png(PNG.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "AVIFToWebP",
+		description: "Convert .avif files to .webp.",
+		from: "image/avif",
+		to: "image/webp",
+		options: WebP.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.webp(WebP.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "AVIFToGIF",
+		description: "Convert .avif files to .gif.",
+		from: "image/avif",
+		to: "image/gif",
+		options: GIF.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.gif(GIF.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "AVIFToJPEG",
+		description: "Convert .avif files to .jpeg.",
+		from: "image/avif",
+		to: "image/jpeg",
+		options: AVIF.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.avif(JPEG.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "AVIFToTIFF",
+		description: "Convert .avif files to .tiff.",
+		from: "image/avif",
+		to: "image/tiff",
+		options: TIFF.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.tiff(TIFF.sharp(options)).toFile(path);
+		},
+	}),
+
+	// TIFF to
+	new Module({
+		label: "TIFFToPNG",
+		description: "Convert .tiff files to .png.",
+		from: "image/tiff",
+		to: "image/png",
+		options: PNG.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.png(PNG.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "TIFFToWebP",
+		description: "Convert .tiff files to .webp.",
+		from: "image/tiff",
+		to: "image/webp",
+		options: WebP.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.webp(WebP.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "TIFFToGIF",
+		description: "Convert .tiff files to .gif.",
+		from: "image/tiff",
+		to: "image/gif",
+		options: GIF.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.gif(GIF.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "TIFFToAVIF",
+		description: "Convert .tiff files to .avif.",
+		from: "image/tiff",
+		to: "image/avif",
+		options: AVIF.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.avif(AVIF.sharp(options)).toFile(path);
+		},
+	}),
+
+	new Module({
+		label: "TIFFToJPEG",
+		description: "Convert .tiff files to .jpeg.",
+		from: "image/tiff",
+		to: "image/jpeg",
+		options: TIFF.options,
+		method: async ({ path }, options = {}) => {
+			const data = await fs.readFile(path);
+
+			const sharp = new Sharp(data);
+			await sharp.tiff(JPEG.sharp(options)).toFile(path);
 		},
 	}),
 ];

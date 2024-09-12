@@ -46,5 +46,30 @@ _Do not use both `CoreModules` and a sub-group at the same time, or conflict err
 -   JPEGToGIF &mdash; `image/jpeg` to `image/gif`
 -   JPEGToAVIF &mdash; `image/jpeg` to `image/avif`
 -   JPEGToTIFF &mdash; `image/jpeg` to `image/tiff`
+-   PNGToJPEG &mdash; `image/png` to `image/jpeg`
+-   PNGToWebP &mdash; `image/png` to `image/webp`
+-   PNGToGIF &mdash; `image/png` to `image/gif`
+-   PNGToAVIF &mdash; `image/png` to `image/avif`
+-   PNGToTIFF &mdash; `image/png` to `image/tiff`
+-   WebPToPNG &mdash; `image/webp` to `image/png`
+-   WebPToJPEG &mdash; `image/webp` to `image/jpeg`
+-   WebPToGIF &mdash; `image/webp` to `image/gif`
+-   WebPToAVIF &mdash; `image/webp` to `image/avif`
+-   WebPToTIFF &mdash; `image/webp` to `image/tiff`
+-   GIFToPNG &mdash; `image/gif` to `image/png`
+-   GIFToWebP &mdash; `image/gif` to `image/webp`
+-   GIFToJPEG &mdash; `image/gif` to `image/jpeg`
+-   GIFToAVIF &mdash; `image/gif` to `image/avif`
+-   GIFToTIFF &mdash; `image/gif` to `image/tiff`
+-   AVIFToPNG &mdash; `image/avif` to `image/png`
+-   AVIFToWebP &mdash; `image/avif` to `image/webp`
+-   AVIFToGIF &mdash; `image/avif` to `image/gif`
+-   AVIFToJPEG &mdash; `image/avif` to `image/jpeg`
+-   AVIFToTIFF &mdash; `image/avif` to `image/tiff`
+-   TIFFToPNG &mdash; `image/tiff` to `image/png`
+-   TIFFToWebP &mdash; `image/tiff` to `image/webp`
+-   TIFFToGIF &mdash; `image/tiff` to `image/gif`
+-   TIFFToAVIF &mdash; `image/tiff` to `image/avif`
+-   TIFFToJPEG &mdash; `image/tiff` to `image/jpeg`
 
 ---
