@@ -17,7 +17,7 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/mp3",
-		method: async ({ path, filename }) => {
+		method: async ({ path }) => {
 			await new Promise((resolve, reject) => {
 				Ffmpeg(path)
 					.toFormat("mp3")
@@ -50,7 +50,7 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/wav",
-		method: async ({ path, filename }) => {
+		method: async ({ path }) => {
 			await new Promise((resolve, reject) => {
 				Ffmpeg(path)
 					.toFormat("wav")
@@ -83,7 +83,7 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/x-aac",
-		method: async ({ path, filename }) => {
+		method: async ({ path }) => {
 			await new Promise((resolve, reject) => {
 				Ffmpeg(path)
 					.toFormat("aac")
@@ -116,7 +116,7 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/x-flac",
-		method: async ({ path, filename }) => {
+		method: async ({ path }) => {
 			await new Promise((resolve, reject) => {
 				Ffmpeg(path)
 					.toFormat("flac")
@@ -149,7 +149,7 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/ogg",
-		method: async ({ path, filename }) => {
+		method: async ({ path }) => {
 			await new Promise((resolve, reject) => {
 				Ffmpeg(path)
 					.toFormat("ogg")
@@ -182,7 +182,7 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/x-aiff",
-		method: async ({ path, filename }) => {
+		method: async ({ path }) => {
 			await new Promise((resolve, reject) => {
 				Ffmpeg(path)
 					.toFormat("aiff")
