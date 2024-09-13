@@ -11,8 +11,6 @@ const PDFModules = [
 		to: "application/pdf",
 		options: [],
 		method: async ({ path }, options = {}) => {
-			const data = await fs.readFile(path);
-
 			// Get image dimensions.
 			const { width, height } = sizeOf(path);
 
