@@ -210,7 +210,7 @@ const VideoModules = [
 		method: async ({ path }) => {
 			await new Promise((resolve, reject) => {
 				Ffmpeg(path)
-					.toFormat("3gpp")
+					.toFormat("3gp")
 					.save(path + "-temp")
 					.on("end", () => {
 						// Replace the original file with the temporary file
