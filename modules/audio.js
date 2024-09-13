@@ -11,6 +11,7 @@ const AudioModules = [
 			"audio/x-wav",
 			"audio/x-aac",
 			"audio/x-flac",
+			"audio/wav",
 			"audio/ogg",
 			"audio/x-aiff",
 			"audio/mpeg",
@@ -27,11 +28,12 @@ const AudioModules = [
 			"audio/mp3",
 			"audio/x-aac",
 			"audio/x-flac",
+			"audio/wav",
 			"audio/ogg",
 			"audio/x-aiff",
 			"audio/mpeg",
 		],
-		to: "audio/x-wav",
+		to: "audio/wav",
 		method: async ({ path }) => {
 			Ffmpeg(path).toFormat("wav").save(path);
 		},
@@ -41,6 +43,7 @@ const AudioModules = [
 		description: "Convert audio files to .aac.",
 		from: [
 			"audio/x-wav",
+			"audio/wav",
 			"audio/mp3",
 			"audio/x-flac",
 			"audio/ogg",
@@ -57,6 +60,7 @@ const AudioModules = [
 		description: "Convert audio files to .flac.",
 		from: [
 			"audio/x-wav",
+			"audio/wav",
 			"audio/x-aac",
 			"audio/mp3",
 			"audio/ogg",
@@ -73,6 +77,7 @@ const AudioModules = [
 		description: "Convert audio files to .ogg.",
 		from: [
 			"audio/x-wav",
+			"audio/wav",
 			"audio/x-aac",
 			"audio/x-flac",
 			"audio/mp3",
@@ -89,6 +94,7 @@ const AudioModules = [
 		description: "Convert audio files to .aiff.",
 		from: [
 			"audio/x-wav",
+			"audio/wav",
 			"audio/x-aac",
 			"audio/x-flac",
 			"audio/ogg",
