@@ -17,8 +17,24 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/mp3",
-		method: async ({ path }) => {
-			Ffmpeg(path).toFormat("mp3").save(path);
+		method: async ({ path, filename }) => {
+			await new Promise((resolve, reject) => {
+				Ffmpeg(path)
+					.toFormat("mp3")
+					.save(path + "-temp")
+					.on("end", () => {
+						// Replace the original file with the temporary file
+						fs.rename(path + "-temp", path, (err) => {
+							if (err) {
+								return reject(err);
+							}
+							resolve();
+						});
+					})
+					.on("error", (err) => {
+						reject(err);
+					});
+			});
 		},
 	}),
 	new Module({
@@ -34,8 +50,24 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/wav",
-		method: async ({ path }) => {
-			Ffmpeg(path).toFormat("wav").save(path);
+		method: async ({ path, filename }) => {
+			await new Promise((resolve, reject) => {
+				Ffmpeg(path)
+					.toFormat("wav")
+					.save(path + "-temp")
+					.on("end", () => {
+						// Replace the original file with the temporary file
+						fs.rename(path + "-temp", path, (err) => {
+							if (err) {
+								return reject(err);
+							}
+							resolve();
+						});
+					})
+					.on("error", (err) => {
+						reject(err);
+					});
+			});
 		},
 	}),
 	new Module({
@@ -51,8 +83,24 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/x-aac",
-		method: async ({ path }) => {
-			Ffmpeg(path).toFormat("aac").save(path);
+		method: async ({ path, filename }) => {
+			await new Promise((resolve, reject) => {
+				Ffmpeg(path)
+					.toFormat("aac")
+					.save(path + "-temp")
+					.on("end", () => {
+						// Replace the original file with the temporary file
+						fs.rename(path + "-temp", path, (err) => {
+							if (err) {
+								return reject(err);
+							}
+							resolve();
+						});
+					})
+					.on("error", (err) => {
+						reject(err);
+					});
+			});
 		},
 	}),
 	new Module({
@@ -68,8 +116,24 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/x-flac",
-		method: async ({ path }) => {
-			Ffmpeg(path).toFormat("flac").save(path);
+		method: async ({ path, filename }) => {
+			await new Promise((resolve, reject) => {
+				Ffmpeg(path)
+					.toFormat("flac")
+					.save(path + "-temp")
+					.on("end", () => {
+						// Replace the original file with the temporary file
+						fs.rename(path + "-temp", path, (err) => {
+							if (err) {
+								return reject(err);
+							}
+							resolve();
+						});
+					})
+					.on("error", (err) => {
+						reject(err);
+					});
+			});
 		},
 	}),
 	new Module({
@@ -85,8 +149,24 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/ogg",
-		method: async ({ path }) => {
-			Ffmpeg(path).toFormat("ogg").save(path);
+		method: async ({ path, filename }) => {
+			await new Promise((resolve, reject) => {
+				Ffmpeg(path)
+					.toFormat("ogg")
+					.save(path + "-temp")
+					.on("end", () => {
+						// Replace the original file with the temporary file
+						fs.rename(path + "-temp", path, (err) => {
+							if (err) {
+								return reject(err);
+							}
+							resolve();
+						});
+					})
+					.on("error", (err) => {
+						reject(err);
+					});
+			});
 		},
 	}),
 	new Module({
@@ -102,8 +182,24 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/x-aiff",
-		method: async ({ path }) => {
-			Ffmpeg(path).toFormat("aiff").save(path);
+		method: async ({ path, filename }) => {
+			await new Promise((resolve, reject) => {
+				Ffmpeg(path)
+					.toFormat("aiff")
+					.save(path + "-temp")
+					.on("end", () => {
+						// Replace the original file with the temporary file
+						fs.rename(path + "-temp", path, (err) => {
+							if (err) {
+								return reject(err);
+							}
+							resolve();
+						});
+					})
+					.on("error", (err) => {
+						reject(err);
+					});
+			});
 		},
 	}),
 ];
