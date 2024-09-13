@@ -68,38 +68,6 @@ const VideoModules = [
 		},
 	}),
 	new Module({
-		label: "VideoToMKV",
-		description: "Convert video files to .mkv.",
-		from: [
-			"video/x-msvideo",
-			"video/mp4",
-			"video/quicktime",
-			"video/webm",
-			"video/mpeg",
-			"video/3gpp",
-		],
-		to: "video/x-matroska",
-		method: async ({ path }) => {
-			await new Promise((resolve, reject) => {
-				Ffmpeg(path)
-					.toFormat("mkv")
-					.save(path + "-temp")
-					.on("end", () => {
-						// Replace the original file with the temporary file
-						fs.rename(path + "-temp", path, (err) => {
-							if (err) {
-								return reject(err);
-							}
-							resolve();
-						});
-					})
-					.on("error", (err) => {
-						reject(err);
-					});
-			});
-		},
-	}),
-	new Module({
 		label: "VideoToMOV",
 		description: "Convert video files to .mov.",
 		from: [
