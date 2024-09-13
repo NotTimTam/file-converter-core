@@ -1,12 +1,10 @@
 import { Module } from "@nottimtam/file-converter";
 import fs from "fs-extra";
-import PDFDocument from "pdfkit";
 import sizeOf from "image-size";
-import Poppler from "node-poppler";
-import { Document, Packer, Paragraph, TextRun } from "docx";
-import mammoth from "mammoth";
-import htmlPDF from "html-pdf";
-import PdfParse from "pdf-parse";
+import PDFDocument from "pdfkit"; // Generates PDFs.
+import Poppler from "node-poppler"; // Generates HTML and TXT from PDFs.
+import { Document, Packer, Paragraph, TextRun } from "docx"; // Generates DOCX files.
+import mammoth from "mammoth"; // Reads DOCX files.
 
 const DocumentModules = [
 	new Module({
@@ -58,8 +56,8 @@ const DocumentModules = [
 		from: "application/pdf",
 		to: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 		method: async ({ path }) => {
-			const pdfBuffer = await fs.readFile(path);
-			const { text } = await PdfParse(pdfBuffer);
+			const buffer = await fs.readFile(path);
+			await new Poppler().pdfToText(buffer, path); // Write text to file.
 
 			// Create a new DOCX document
 			const doc = new Document({
@@ -68,7 +66,9 @@ const DocumentModules = [
 						properties: {},
 						children: [
 							new Paragraph({
-								children: [new TextRun(text)],
+								children: [
+									new TextRun(await fs.readFile(path)),
+								],
 							}),
 						],
 					},
@@ -123,6 +123,31 @@ const DocumentModules = [
 		},
 	}),
 	new Module({
+		label: "TXTtoHTML",
+		description: "Convert .txt files to .html.",
+		from: "text/plain",
+		to: "text/html",
+		method: async ({ path, originalname }) => {
+			const text = await fs.readFile(path, "utf-8");
+
+			// Write the DOCX buffer to a file
+			await fs.writeFile(
+				path,
+				`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${originalname || "Document"}</title>
+</head>
+<body>
+    <p>${text}</p>
+</body>
+</html>`
+			);
+		},
+	}),
+	new Module({
 		label: "DOCXtoTXT",
 		description: "Convert .docx files to .txt.",
 		from: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -135,16 +160,15 @@ const DocumentModules = [
 		},
 	}),
 	new Module({
-		label: "DOCXtoPDF",
-		description: "Convert .docx files to .pdf.",
+		label: "DOCXtoHTML",
+		description: "Convert .docx files to .html.",
 		from: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-		to: "application/pdf",
+		to: "text/html",
 		method: async ({ path }) => {
 			const docxBuffer = await fs.readFile(path);
 			const result = await mammoth.convertToHtml({ buffer: docxBuffer });
 
-			// Create a new PDF document
-			htmlPDF.create(result.value).toFile(path);
+			await fs.writeFile(path, result.value);
 		},
 	}),
 ];

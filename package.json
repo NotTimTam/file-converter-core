@@ -1,6 +1,6 @@
 {
 	"name": "@nottimtam/file-converter-core",
-	"version": "1.2.14",
+	"version": "1.2.15",
 	"description": "Core file conversion modules for @nottimtam/file-converter.",
 	"main": "index.js",
 	"type": "module",
@@ -26,11 +26,9 @@
 		"@nottimtam/file-converter": "latest",
 		"docx": "^8.5.0",
 		"fs-extra": "^11.2.0",
-		"html-pdf": "^3.0.1",
 		"image-size": "^1.1.1",
 		"mammoth": "^1.8.0",
 		"node-poppler": "^7.2.2",
-		"pdf-parse": "^1.1.1",
 		"pdfkit": "^0.15.0",
 		"sharp": "^0.33.5"
 	},
