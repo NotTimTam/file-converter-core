@@ -13,7 +13,6 @@ const VideoModules = [
 			"video/webm",
 			"video/mpeg",
 			"video/3gpp",
-			"video/avi",
 		],
 		to: "video/mp4",
 		method: async ({ path }) => {
@@ -46,9 +45,8 @@ const VideoModules = [
 			"video/webm",
 			"video/mpeg",
 			"video/3gpp",
-			"video/x-msvideo",
 		],
-		to: "video/avi",
+		to: "video/x-msvideo",
 		method: async ({ path }) => {
 			await new Promise((resolve, reject) => {
 				Ffmpeg(path)
@@ -79,7 +77,6 @@ const VideoModules = [
 			"video/webm",
 			"video/mpeg",
 			"video/3gpp",
-			"video/avi",
 		],
 		to: "video/quicktime",
 		method: async ({ path }) => {
@@ -112,7 +109,6 @@ const VideoModules = [
 			"video/mp4",
 			"video/mpeg",
 			"video/3gpp",
-			"video/avi",
 		],
 		to: "video/webm",
 		method: async ({ path }) => {
@@ -145,7 +141,6 @@ const VideoModules = [
 			"video/webm",
 			"video/mpeg",
 			"video/mp4",
-			"video/avi",
 		],
 		to: "video/3gpp",
 		method: async ({ path }) => {
