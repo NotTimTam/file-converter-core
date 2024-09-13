@@ -2,8 +2,6 @@
 
 Core file conversion modules for [@nottimtam/file-converter](https://www.npmjs.com/package/@nottimtam/file-converter).
 
-This package is still a work-in-progress, useful modules are in the works.
-
 ## Installation
 
 ```terminal
