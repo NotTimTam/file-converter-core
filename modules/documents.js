@@ -2,9 +2,11 @@ import { Module } from "@nottimtam/file-converter";
 import fs from "fs-extra";
 import PDFDocument from "pdfkit";
 import sizeOf from "image-size";
-import { PDFDocument as PdfLibDocument } from "pdf-lib";
-import { Document, Packer, Paragraph } from "docx";
+import Poppler from "node-poppler";
+import { Document, Packer, Paragraph, TextRun } from "docx";
 import mammoth from "mammoth";
+import htmlPDF from "html-pdf";
+import PdfParse from "pdf-parse";
 
 const DocumentModules = [
 	new Module({
@@ -34,10 +36,20 @@ const DocumentModules = [
 		from: "application/pdf",
 		to: "text/plain",
 		method: async ({ path }) => {
-			const pdfBuffer = await fs.readFile(path);
-			const data = await PdfLibDocument.load(pdfBuffer);
+			const buffer = await fs.readFile(path);
 
-			await fs.writeFile(path, data.text);
+			await new Poppler().pdfToText(buffer, path);
+		},
+	}),
+	new Module({
+		label: "PDFtoHTML",
+		description: "Convert .pdf files to .html.",
+		from: "application/pdf",
+		to: "text/html",
+		method: async ({ path }) => {
+			const buffer = await fs.readFile(path);
+
+			await new Poppler().pdfToHtml(buffer, path);
 		},
 	}),
 	new Module({
@@ -47,20 +59,24 @@ const DocumentModules = [
 		to: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 		method: async ({ path }) => {
 			const pdfBuffer = await fs.readFile(path);
-			const data = await PdfLibDocument.load(pdfBuffer);
+			const { text } = await PdfParse(pdfBuffer);
 
 			// Create a new DOCX document
-			const doc = new Document();
-
-			// Add parsed PDF text to the DOCX document
-			doc.addSection({
-				children: [new Paragraph(data.text)],
+			const doc = new Document({
+				sections: [
+					{
+						properties: {},
+						children: [
+							new Paragraph({
+								children: [new TextRun(text)],
+							}),
+						],
+					},
+				],
 			});
 
-			// Create a buffer with the DOCX data
+			// Write the DOCX file
 			const docxBuffer = await Packer.toBuffer(doc);
-
-			// Write the DOCX buffer to a file
 			await fs.writeFile(path, docxBuffer);
 		},
 	}),
@@ -118,7 +134,6 @@ const DocumentModules = [
 			await fs.writeFile(path, result.value);
 		},
 	}),
-
 	new Module({
 		label: "DOCXtoPDF",
 		description: "Convert .docx files to .pdf.",
@@ -129,14 +144,7 @@ const DocumentModules = [
 			const result = await mammoth.convertToHtml({ buffer: docxBuffer });
 
 			// Create a new PDF document
-			const pdf = new PDFDocument();
-
-			// Add text to PDF
-			pdf.text(result.value);
-
-			// Save the PDF file
-			pdf.pipe(fs.createWriteStream(path));
-			pdf.end();
+			htmlPDF.create(result.value).toFile(path);
 		},
 	}),
 ];
