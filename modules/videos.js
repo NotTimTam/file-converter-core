@@ -164,38 +164,6 @@ const VideoModules = [
 		},
 	}),
 	new Module({
-		label: "VideoToMPEG",
-		description: "Convert video files to .mpeg.",
-		from: [
-			"video/x-msvideo",
-			"video/x-matroska",
-			"video/quicktime",
-			"video/webm",
-			"video/mp4",
-			"video/3gpp",
-		],
-		to: "video/mpeg",
-		method: async ({ path }) => {
-			await new Promise((resolve, reject) => {
-				Ffmpeg(path)
-					.toFormat("mpeg")
-					.save(path + "-temp")
-					.on("end", () => {
-						// Replace the original file with the temporary file
-						fs.rename(path + "-temp", path, (err) => {
-							if (err) {
-								return reject(err);
-							}
-							resolve();
-						});
-					})
-					.on("error", (err) => {
-						reject(err);
-					});
-			});
-		},
-	}),
-	new Module({
 		label: "VideoTo3GP",
 		description: "Convert video files to .3gp.",
 		from: [

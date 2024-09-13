@@ -122,7 +122,6 @@ If you do not want to use `AudioModules` or `VideoModules`, manually import the 
 -   VideoToMKV &mdash; `video/x-msvideo`, `video/mp4`, `video/quicktime`, `video/webm`, `video/mpeg`, `video/3gpp` to `video/x-matroska`
 -   VideoToMOV &mdash; `video/x-msvideo`, `video/x-matroska`, `video/mp4`, `video/webm`, `video/mpeg`, `video/3gpp` to `video/quicktime`
 -   VideoToWEBM &mdash; `video/x-msvideo`, `video/x-matroska`, `video/quicktime`, `video/mp4`, `video/mpeg`, `video/3gpp` to `video/webm`
--   VideoToMPEG &mdash; `video/x-msvideo`, `video/x-matroska`, `video/quicktime`, `video/webm`, `video/mp4`, `video/3gpp` to `video/mpeg`
 -   VideoTo3GP &mdash; `video/x-msvideo`, `video/x-matroska`, `video/quicktime`, `video/webm`, `video/mpeg`, `video/mp4` to `video/3gpp`
 
 ---
