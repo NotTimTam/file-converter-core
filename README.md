@@ -42,7 +42,7 @@ import {
 
 _Do not use both `CoreModules` and a sub-group at the same time, or conflict errors will be thrown._
 
-**NOTE:** To use the audio modules, you will need to have `ffmpeg` installed to the system your application is running on.
+**NOTE:** To use the audio/video modules, you will need to have `ffmpeg` installed to the system your application is running on.
 
 For a `Dockerfile`, you can add the line:
 
@@ -53,7 +53,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 ```
 
-If you do not want to use `AudioModules`, manually import the module groups you would like to use instead of using `CoreModules`
+If you do not want to use `AudioModules` or `VideoModules`, manually import the module groups you would like to use instead of using `CoreModules`
 
 ### ImageModules
 
@@ -107,11 +107,22 @@ If you do not want to use `AudioModules`, manually import the module groups you 
 
 ### AudioModules
 
--   AudioToMP3 &mdash; `audio/x-wav`, `audio/x-aac`, `audio/x-flac`, `audio/ogg`, `audio/x-aiff` to `audio/mpeg`
--   AudioToWAV &mdash; `audio/mpeg`, `audio/x-aac`, `audio/x-flac`, `audio/ogg`, `audio/x-aiff` to `audio/x-wav`
--   AudioToAAC &mdash; `audio/x-wav`, `audio/mpeg`, `audio/x-flac`, `audio/ogg`, `audio/x-aiff` to `audio/x-aac`
--   AudioToFLAC &mdash; `audio/x-wav`, `audio/x-aac`, `audio/mpeg`, `audio/ogg`, `audio/x-aiff` to `audio/x-flac`
--   AudioToOGG &mdash; `audio/x-wav`, `audio/x-aac`, `audio/x-flac`, `audio/mpeg`, `audio/x-aiff` to `audio/ogg`
--   AudioToAIFF &mdash; `audio/x-wav`, `audio/x-aac`, `audio/x-flac`, `audio/ogg`, `audio/mpeg` to `audio/x-aiff`
+-   AudioToMP3 &mdash; `audio/x-wav`, `audio/x-flac`, `audio/ogg`, `audio/x-aiff` to `audio/mpeg`
+-   AudioToWAV &mdash; `audio/mpeg`, `audio/x-flac`, `audio/ogg`, `audio/x-aiff` to `audio/x-wav`
+-   AudioToFLAC &mdash; `audio/x-wav`, `audio/mpeg`, `audio/ogg`, `audio/x-aiff` to `audio/x-flac`
+-   AudioToOGG &mdash; `audio/x-wav`, `audio/x-flac`, `audio/mpeg`, `audio/x-aiff` to `audio/ogg`
+-   AudioToAIFF &mdash; `audio/x-wav`, `audio/x-flac`, `audio/ogg`, `audio/mpeg` to `audio/x-aiff`
+
+---
+
+### VideoModules
+
+-   VideoToMP4 &mdash; `video/x-msvideo`, `video/x-matroska`, `video/quicktime`, `video/webm`, `video/mpeg`, `video/3gpp` to `video/mp4`
+-   VideoToAVI &mdash; `video/mp4`, `video/x-matroska`, `video/quicktime`, `video/webm`, `video/mpeg`, `video/3gpp` to `video/x-msvideo`
+-   VideoToMKV &mdash; `video/x-msvideo`, `video/mp4`, `video/quicktime`, `video/webm`, `video/mpeg`, `video/3gpp` to `video/x-matroska`
+-   VideoToMOV &mdash; `video/x-msvideo`, `video/x-matroska`, `video/mp4`, `video/webm`, `video/mpeg`, `video/3gpp` to `video/quicktime`
+-   VideoToWEBM &mdash; `video/x-msvideo`, `video/x-matroska`, `video/quicktime`, `video/mp4`, `video/mpeg`, `video/3gpp` to `video/webm`
+-   VideoToMPEG &mdash; `video/x-msvideo`, `video/x-matroska`, `video/quicktime`, `video/webm`, `video/mp4`, `video/3gpp` to `video/mpeg`
+-   VideoTo3GP &mdash; `video/x-msvideo`, `video/x-matroska`, `video/quicktime`, `video/webm`, `video/mpeg`, `video/mp4` to `video/3gpp`
 
 ---
