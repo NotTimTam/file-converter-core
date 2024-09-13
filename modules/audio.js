@@ -16,7 +16,9 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/mp3",
-		method: async ({ path }) => Ffmpeg(path).toFormat("mp3").save(path),
+		method: async ({ path }) => {
+			Ffmpeg(path).toFormat("mp3").save(path);
+		},
 	}),
 	new Module({
 		label: "AudioToWAV",
@@ -30,7 +32,9 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/x-wav",
-		method: async ({ path }) => Ffmpeg(path).toFormat("wav").save(path),
+		method: async ({ path }) => {
+			Ffmpeg(path).toFormat("wav").save(path);
+		},
 	}),
 	new Module({
 		label: "AudioToAAC",
@@ -44,7 +48,9 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/x-aac",
-		method: async ({ path }) => Ffmpeg(path).toFormat("aac").save(path),
+		method: async ({ path }) => {
+			Ffmpeg(path).toFormat("aac").save(path);
+		},
 	}),
 	new Module({
 		label: "AudioToFLAC",
@@ -58,7 +64,9 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/x-flac",
-		method: async ({ path }) => Ffmpeg(path).toFormat("flac").save(path),
+		method: async ({ path }) => {
+			Ffmpeg(path).toFormat("flac").save(path);
+		},
 	}),
 	new Module({
 		label: "AudioToOGG",
@@ -72,7 +80,9 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/ogg",
-		method: async ({ path }) => Ffmpeg(path).toFormat("ogg").save(path),
+		method: async ({ path }) => {
+			Ffmpeg(path).toFormat("ogg").save(path);
+		},
 	}),
 	new Module({
 		label: "AudioToAIFF",
@@ -86,7 +96,9 @@ const AudioModules = [
 			"audio/mpeg",
 		],
 		to: "audio/x-aiff",
-		method: async ({ path }) => Ffmpeg(path).toFormat("aiff").save(path),
+		method: async ({ path }) => {
+			Ffmpeg(path).toFormat("aiff").save(path);
+		},
 	}),
 ];
 
