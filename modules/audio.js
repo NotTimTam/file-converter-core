@@ -1,5 +1,4 @@
 import { Module } from "@nottimtam/file-converter";
-import fs from "fs-extra";
 import Ffmpeg from "fluent-ffmpeg";
 
 // mp3, wav, aac, flac, ogg, aiff, opus
@@ -15,14 +14,14 @@ const AudioModules = [
 			"audio/ogg",
 			"audio/x-aiff",
 		],
-		to: "audio/mpeg",
+		to: "audio/mp3",
 		method: async ({ path }) => Ffmpeg(path).toFormat("mp3").save(path),
 	}),
 	new Module({
 		label: "AudioToWAV",
 		description: "Convert audio files to .wav.",
 		from: [
-			"audio/mpeg",
+			"audio/mp3",
 			"audio/x-aac",
 			"audio/x-flac",
 			"audio/ogg",
@@ -36,7 +35,7 @@ const AudioModules = [
 		description: "Convert audio files to .aac.",
 		from: [
 			"audio/x-wav",
-			"audio/mpeg",
+			"audio/mp3",
 			"audio/x-flac",
 			"audio/ogg",
 			"audio/x-aiff",
@@ -50,7 +49,7 @@ const AudioModules = [
 		from: [
 			"audio/x-wav",
 			"audio/x-aac",
-			"audio/mpeg",
+			"audio/mp3",
 			"audio/ogg",
 			"audio/x-aiff",
 		],
@@ -64,7 +63,7 @@ const AudioModules = [
 			"audio/x-wav",
 			"audio/x-aac",
 			"audio/x-flac",
-			"audio/mpeg",
+			"audio/mp3",
 			"audio/x-aiff",
 		],
 		to: "audio/ogg",
@@ -78,7 +77,7 @@ const AudioModules = [
 			"audio/x-aac",
 			"audio/x-flac",
 			"audio/ogg",
-			"audio/mpeg",
+			"audio/mp3",
 		],
 		to: "audio/x-aiff",
 		method: async ({ path }) => Ffmpeg(path).toFormat("aiff").save(path),
