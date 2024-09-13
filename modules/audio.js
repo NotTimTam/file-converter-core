@@ -1,5 +1,6 @@
 import { Module } from "@nottimtam/file-converter";
 import Ffmpeg from "fluent-ffmpeg";
+import fs from "fs-extra";
 
 // mp3, wav, aac, flac, ogg, aiff, opus
 
