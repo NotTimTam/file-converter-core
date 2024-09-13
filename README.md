@@ -34,10 +34,28 @@ import CoreModules from "@nottimtam/file-converter-core";
 Or just the groups you need:
 
 ```js
-import { ImageModules, DocumentModules } from "@nottimtam/file-converter-core";
+import {
+	ImageModules,
+	DocumentModules,
+	VideoModules,
+	AudioModules,
+} from "@nottimtam/file-converter-core";
 ```
 
 _Do not use both `CoreModules` and a sub-group at the same time, or conflict errors will be thrown._
+
+**NOTE:** To use the audio modules, you will need to have `ffmpeg` installed to the system your application is running on.
+
+For a `Dockerfile`, you can add the line:
+
+```Dockerfile
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+```
+
+If you do not want to use `AudioModules`, manually import the module groups you would like to use instead of using `CoreModules`
 
 ### ImageModules
 
@@ -77,13 +95,25 @@ _Do not use both `CoreModules` and a sub-group at the same time, or conflict err
 ### DocumentModules
 
 -   ImageToPDF &mdash; `image/jpeg`, `image/png` to `application/pdf`
--   PDFtoTXT &mdash; `application/pdf` to `text/plain`
--   PDFtoHTML &mdash; `application/pdf` to `text/html`
--   PDFtoDOCX &mdash; `application/pdf` to `application/vnd.openxmlformats-officedocument.wordprocessingml.document`
--   TXTtoPDF &mdash; `text/plain` to `application/pdf`
--   TXTtoDOCX &mdash; `text/plain` to `application/vnd.openxmlformats-officedocument.wordprocessingml.document`
--   TXTtoHTML &mdash; `text/plain` to `text/html`
--   DOCXtoTXT &mdash; `application/vnd.openxmlformats-officedocument.wordprocessingml.document` to `text/plain`
--   DOCXtoHTML &mdash; `application/vnd.openxmlformats-officedocument.wordprocessingml.document` to `text/html`
+-   PDFToTXT &mdash; `application/pdf` to `text/plain`
+-   PDFToHTML &mdash; `application/pdf` to `text/html`
+-   PDFToDOCX &mdash; `application/pdf` to `application/vnd.openxmlformats-officedocument.wordprocessingml.document`
+-   TXTToPDF &mdash; `text/plain` to `application/pdf`
+-   TXTToDOCX &mdash; `text/plain` to `application/vnd.openxmlformats-officedocument.wordprocessingml.document`
+-   TXTToHTML &mdash; `text/plain` to `text/html`
+-   HTMLToTXT &mdash; `text/html` to `text/plain`
+-   DOCXToTXT &mdash; `application/vnd.openxmlformats-officedocument.wordprocessingml.document` to `text/plain`
+-   DOCXToHTML &mdash; `application/vnd.openxmlformats-officedocument.wordprocessingml.document` to `text/html`
+
+---
+
+### AudioModules
+
+-   AudioToMP3 &mdash; `audio/x-wav`, `audio/x-aac`, `audio/x-flac`, `audio/ogg`, `audio/x-aiff` to `audio/mpeg`
+-   AudioToWAV &mdash; `audio/mpeg`, `audio/x-aac`, `audio/x-flac`, `audio/ogg`, `audio/x-aiff` to `audio/x-wav`
+-   AudioToAAC &mdash; `audio/x-wav`, `audio/mpeg`, `audio/x-flac`, `audio/ogg`, `audio/x-aiff` to `audio/x-aac`
+-   AudioToFLAC &mdash; `audio/x-wav`, `audio/x-aac`, `audio/mpeg`, `audio/ogg`, `audio/x-aiff` to `audio/x-flac`
+-   AudioToOGG &mdash; `audio/x-wav`, `audio/x-aac`, `audio/x-flac`, `audio/mpeg`, `audio/x-aiff` to `audio/ogg`
+-   AudioToAIFF &mdash; `audio/x-wav`, `audio/x-aac`, `audio/x-flac`, `audio/ogg`, `audio/mpeg` to `audio/x-aiff`
 
 ---

@@ -4,6 +4,7 @@ import sizeOf from "image-size";
 import PDFDocument from "pdfkit"; // Generates PDFs.
 import { Document, Packer, Paragraph, TextRun } from "docx"; // Generates DOCX files.
 import mammoth from "mammoth"; // Reads DOCX files.
+import { convert } from "html-to-text";
 
 const DocumentModules = [
 	new Module({
@@ -28,7 +29,7 @@ const DocumentModules = [
 		},
 	}),
 	new Module({
-		label: "TXTtoPDF",
+		label: "TXTToPDF",
 		description: "Convert .txt files to .pdf.",
 		from: "text/plain",
 		to: "application/pdf",
@@ -47,7 +48,7 @@ const DocumentModules = [
 		},
 	}),
 	new Module({
-		label: "TXTtoDOCX",
+		label: "TXTToDOCX",
 		description: "Convert .txt files to .docx.",
 		from: "text/plain",
 		to: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -72,7 +73,7 @@ const DocumentModules = [
 		},
 	}),
 	new Module({
-		label: "TXTtoHTML",
+		label: "TXTToHTML",
 		description: "Convert .txt files to .html.",
 		from: "text/plain",
 		to: "text/html",
@@ -97,7 +98,19 @@ const DocumentModules = [
 		},
 	}),
 	new Module({
-		label: "DOCXtoTXT",
+		label: "HTMLToTXT",
+		description: "html .txt files to .txt.",
+		from: "text/html",
+		to: "text/plain",
+		method: async ({ path, originalname }) => {
+			const html = await fs.readFile(path, "utf-8");
+			const text = convert(html);
+
+			await fs.writeFile(path, text);
+		},
+	}),
+	new Module({
+		label: "DOCXToTXT",
 		description: "Convert .docx files to .txt.",
 		from: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 		to: "text/plain",
@@ -109,7 +122,7 @@ const DocumentModules = [
 		},
 	}),
 	new Module({
-		label: "DOCXtoHTML",
+		label: "DOCXToHTML",
 		description: "Convert .docx files to .html.",
 		from: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 		to: "text/html",
