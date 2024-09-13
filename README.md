@@ -34,7 +34,7 @@ import CoreModules from "@nottimtam/file-converter-core";
 Or just the groups you need:
 
 ```js
-import { ImageModules, PDFModules } from "@nottimtam/file-converter-core";
+import { ImageModules, DocumentModules } from "@nottimtam/file-converter-core";
 ```
 
 _Do not use both `CoreModules` and a sub-group at the same time, or conflict errors will be thrown._
@@ -74,8 +74,14 @@ _Do not use both `CoreModules` and a sub-group at the same time, or conflict err
 
 ---
 
-### PDFModules
+### DocumentModules
 
--   ImageToPDF &mdash; `image/jpeg` & `image/png` to `application/pdf`
+-   **ImageToPDF** &mdash; `image/jpeg`, `image/png` to `application/pdf`
+-   **PDFtoTXT** &mdash; `application/pdf` to `text/plain`
+-   **PDFtoDOCX** &mdash; `application/pdf` to `application/vnd.openxmlformats-officedocument.wordprocessingml.document`
+-   **TXTtoPDF** &mdash; `text/plain` to `application/pdf`
+-   **TXTtoDOCX** &mdash; `text/plain` to `application/vnd.openxmlformats-officedocument.wordprocessingml.document`
+-   **DOCXtoTXT** &mdash; `application/vnd.openxmlformats-officedocument.wordprocessingml.document` to `text/plain`
+-   **DOCXtoPDF** &mdash; `application/vnd.openxmlformats-officedocument.wordprocessingml.document` to `application/pdf`
 
 ---

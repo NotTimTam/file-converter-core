@@ -1,9 +1,9 @@
 import ImageModules from "./modules/images.js";
-import PDFModules from "./modules/pdfs.js";
+import DocumentModules from "./modules/documents.js";
 
 export { default as ImageModules } from "./modules/images.js";
-export { default as PDFModules } from "./modules/pdfs.js";
+export { default as DocumentModules } from "./modules/documents.js";
 
-const CoreModules = [...ImageModules, ...PDFModules];
+const CoreModules = [...ImageModules, ...DocumentModules];
 
 export default CoreModules;
