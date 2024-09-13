@@ -2,7 +2,7 @@ import { Module } from "@nottimtam/file-converter";
 import fs from "fs-extra";
 import PDFDocument from "pdfkit";
 import sizeOf from "image-size";
-import pdfParse from "pdf-parse";
+import { PDFDocument as PdfLibDocument } from "pdf-lib";
 import { Document, Packer, Paragraph } from "docx";
 import mammoth from "mammoth";
 
@@ -35,7 +35,7 @@ const DocumentModules = [
 		to: "text/plain",
 		method: async ({ path }) => {
 			const pdfBuffer = await fs.readFile(path);
-			const data = await pdfParse(pdfBuffer);
+			const data = await PdfLibDocument.load(pdfBuffer);
 
 			await fs.writeFile(path, data.text);
 		},
@@ -47,7 +47,7 @@ const DocumentModules = [
 		to: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 		method: async ({ path }) => {
 			const pdfBuffer = await fs.readFile(path);
-			const data = await pdfParse(pdfBuffer);
+			const data = await PdfLibDocument.load(pdfBuffer);
 
 			// Create a new DOCX document
 			const doc = new Document();
