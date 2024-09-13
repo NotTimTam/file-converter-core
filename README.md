@@ -76,14 +76,14 @@ _Do not use both `CoreModules` and a sub-group at the same time, or conflict err
 
 ### DocumentModules
 
--   ImageToPDF &mdash; image/jpeg, image/png to application/pdf
--   PDFtoTXT &mdash; application/pdf to text/plain
--   PDFtoHTML &mdash; application/pdf to text/html
--   PDFtoDOCX &mdash; application/pdf to application/vnd.openxmlformats-officedocument.wordprocessingml.document
--   TXTtoPDF &mdash; text/plain to application/pdf
--   TXTtoDOCX &mdash; text/plain to application/vnd.openxmlformats-officedocument.wordprocessingml.document
--   TXTtoHTML &mdash; text/plain to text/html
--   DOCXtoTXT &mdash; application/vnd.openxmlformats-officedocument.wordprocessingml.document to text/plain
--   DOCXtoHTML &mdash; application/vnd.openxmlformats-officedocument.wordprocessingml.document to text/html
+-   ImageToPDF &mdash; `image/jpeg`, `image/png` to `application/pdf`
+-   PDFtoTXT &mdash; `application/pdf` to `text/plain`
+-   PDFtoHTML &mdash; `application/pdf` to `text/html`
+-   PDFtoDOCX &mdash; `application/pdf` to `application/vnd.openxmlformats-officedocument.wordprocessingml.document`
+-   TXTtoPDF &mdash; `text/plain` to `application/pdf`
+-   TXTtoDOCX &mdash; `text/plain` to `application/vnd.openxmlformats-officedocument.wordprocessingml.document`
+-   TXTtoHTML &mdash; `text/plain` to `text/html`
+-   DOCXtoTXT &mdash; `application/vnd.openxmlformats-officedocument.wordprocessingml.document` to `text/plain`
+-   DOCXtoHTML &mdash; `application/vnd.openxmlformats-officedocument.wordprocessingml.document` to `text/html`
 
 ---
