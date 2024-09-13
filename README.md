@@ -76,6 +76,6 @@ _Do not use both `CoreModules` and a sub-group at the same time, or conflict err
 
 ### PDFModules
 
--   JPEGToPDF &mdash; `image/jpeg` to `application/pdf`
+-   ImageToPDF &mdash; `image/jpeg` & `image/png` to `application/pdf`
 
 ---
