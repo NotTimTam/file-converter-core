@@ -1,6 +1,6 @@
 {
 	"name": "@nottimtam/file-converter-core",
-	"version": "1.2.7",
+	"version": "1.2.8",
 	"description": "Core file conversion modules for @nottimtam/file-converter.",
 	"main": "index.js",
 	"type": "module",
@@ -25,6 +25,7 @@
 	"dependencies": {
 		"@nottimtam/file-converter": "latest",
 		"fs-extra": "^11.2.0",
+		"image-size": "^1.1.1",
 		"pdfkit": "^0.15.0",
 		"sharp": "^0.33.5"
 	},
