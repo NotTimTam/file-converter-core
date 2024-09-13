@@ -3,7 +3,6 @@ import fs from "fs-extra";
 import PDFDocument from "pdfkit";
 import sizeOf from "image-size";
 import pdfParse from "pdf-parse";
-import { PDFDocument } from "pdf-lib";
 import { Document, Packer, Paragraph } from "docx";
 import mammoth from "mammoth";
 
