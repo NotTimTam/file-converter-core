@@ -10,7 +10,6 @@ const AudioModules = [
 		description: "Convert audio files to .mp3.",
 		from: [
 			"audio/x-wav",
-			"audio/x-aac",
 			"audio/x-flac",
 			"audio/wav",
 			"audio/ogg",
@@ -43,7 +42,6 @@ const AudioModules = [
 		description: "Convert audio files to .wav.",
 		from: [
 			"audio/mp3",
-			"audio/x-aac",
 			"audio/x-flac",
 			"audio/wav",
 			"audio/ogg",
@@ -72,45 +70,11 @@ const AudioModules = [
 		},
 	}),
 	new Module({
-		label: "AudioToAAC",
-		description: "Convert audio files to .aac.",
-		from: [
-			"audio/x-wav",
-			"audio/wav",
-			"audio/mp3",
-			"audio/x-flac",
-			"audio/ogg",
-			"audio/x-aiff",
-			"audio/mpeg",
-		],
-		to: "audio/x-aac",
-		method: async ({ path }) => {
-			await new Promise((resolve, reject) => {
-				Ffmpeg(path)
-					.toFormat("aac")
-					.save(path + "-temp")
-					.on("end", () => {
-						// Replace the original file with the temporary file
-						fs.rename(path + "-temp", path, (err) => {
-							if (err) {
-								return reject(err);
-							}
-							resolve();
-						});
-					})
-					.on("error", (err) => {
-						reject(err);
-					});
-			});
-		},
-	}),
-	new Module({
 		label: "AudioToFLAC",
 		description: "Convert audio files to .flac.",
 		from: [
 			"audio/x-wav",
 			"audio/wav",
-			"audio/x-aac",
 			"audio/mp3",
 			"audio/ogg",
 			"audio/x-aiff",
@@ -143,7 +107,6 @@ const AudioModules = [
 		from: [
 			"audio/x-wav",
 			"audio/wav",
-			"audio/x-aac",
 			"audio/x-flac",
 			"audio/mp3",
 			"audio/x-aiff",
@@ -176,7 +139,6 @@ const AudioModules = [
 		from: [
 			"audio/x-wav",
 			"audio/wav",
-			"audio/x-aac",
 			"audio/x-flac",
 			"audio/ogg",
 			"audio/mp3",
